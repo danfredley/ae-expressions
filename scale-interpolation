@@ -1,0 +1,28 @@
+function easeandwizz_inoutExpo(t, b, c, d) {
+	var CORRECTION = .000976563;
+	var v;
+	if ((t/=d/2) < 1) {
+		v = Math.pow(2, 10 * (t - 1)) - CORRECTION;
+	} else {
+		v = (-Math.pow(2, -10 * (t - 1)) + 2) + CORRECTION;
+	}
+	return b + (v/2) * c;
+}
+
+function easeAndWizz() {
+	pL = thisComp.layer(thisLayer.index + 1);
+	nL = thisComp.layer(thisLayer.index - 1);
+	startTransition = thisComp.layer("CONTROLS").effect("Title Transition Start")("Slider");
+	t = time - pL.outPoint + startTransition;	
+	duration1 = thisComp.layer("CONTROLS").effect("Title Transition Duration")("Slider");
+	scaleAmount = -35;
+	sX = pL.scale[0];
+	eX = nL.scale[0] - sX + scaleAmount;
+	sY = pL.scale[1];
+	eY = nL.scale[1] - sY + scaleAmount;
+	val1 =  easeandwizz_inoutExpo(t, sX, eX, duration1);
+	val2 = easeandwizz_inoutExpo(t, sY, eY, duration1);
+	return [val1, val2];
+}
+ 
+(easeAndWizz() || value);
