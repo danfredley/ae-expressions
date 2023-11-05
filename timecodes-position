@@ -1,0 +1,26 @@
+L=thisLayer;
+layerBelow = thisComp.layer(thisLayer.index+1);
+lineOneY = 500;
+numLinesValue = 0;
+addY = 0;
+mySpacing = 33;
+if(L.effect("NumberOfLines")){
+	numLinesValue = Math.round(L.effect("NumberOfLines")("Slider"));
+	}
+try{
+	if(layerBelow.effect("isTitle")("Checkbox")){
+		addY = 40;
+	}}catch (err){
+		addY = 0;
+	};
+switch(numLinesValue){
+	case 1:[140.5,lineOneY + 40 + addY];break;
+	case 2:[140.5,lineOneY-numLinesValue*mySpacing + 57 + addY];break;
+	case 3:[140.5,lineOneY-numLinesValue*mySpacing + 33 + addY];break;
+	case 4:[140.5,lineOneY-numLinesValue*mySpacing + 18 + addY];break;
+	case 5:[140.5,lineOneY-numLinesValue*mySpacing + addY];break;
+	case 6:[140.5,lineOneY-numLinesValue*mySpacing - 18 + addY];break;
+	case 7:[140.5,lineOneY-numLinesValue*mySpacing - 33 + addY];break;
+	case 8:[140.5,lineOneY-numLinesValue*mySpacing - 49 + addY];break;
+	default:value;
+	}
