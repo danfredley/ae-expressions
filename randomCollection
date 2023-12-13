@@ -1,0 +1,62 @@
+// Random Collection of After Effects Expressions
+
+// From user Beaver mograph.net circa 2007
+// Jumpy Wiggle 1 (moves at a random FPS)
+v=wiggle(5,50);
+if(v < 50)v=0;
+if(v > 50)v=100;
+v
+
+// Jumpy Wiggle 2 (moves at a defined FPS)
+fps=5; //frequency
+amount=50;  //amplitude
+wiggle(fps,amount,octaves = 1, amp_mult = 0.5,(Math.round(time*fps))/fps);
+
+
+// Inertial Bounce (moves settle into place after bouncing around a little)
+n = 0;
+if (numKeys > 0){
+n = nearestKey(time).index;
+if (key(n).time > time){
+n--;
+}
+}
+if (n == 0){
+t = 0;
+}else{
+t = time - key(n).time;
+}
+
+if (n > 0){
+v = velocityAtTime(key(n).time - thisComp.frameDuration/10);
+amp = .05;
+freq = 4.0;
+decay = 2.0;
+value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);
+}else{
+value;
+}
+
+// Throw (move at a constant speed without keyframes)
+veloc = -10; //horizontal velocity (pixels per second)
+x = position[0] + (time - inPoint) *veloc;
+y = position[1];
+[x,y]
+
+// Spin (rotate at a constant speed without keyframes)
+veloc = 360; //rotational velocity (degrees per second)
+r = rotation + (time - inPoint) *veloc;
+[r]
+
+// oscillating or 'crenelated' spiral path
+center=[thisComp.width/2,thisComp.height/2];
+rMax = 240; //maximum radius
+decay = 0.3; //decay
+freq = 6; //frequency
+aStart = 0; //start angle offset
+aRate = 220; //rotation rate
+offsetFactor = 12; //smoothness
+r = rMax/Math.exp(time*decay);
+a = degreesToRadians(aStart + aRate*time);
+offset = (r/offsetFactor)*Math.sin(freq*time*Math.PI*2);
+center + [Math.cos(a),Math.sin(a)]*(r + offset);
